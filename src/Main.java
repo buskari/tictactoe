@@ -3,12 +3,50 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        String cells;
+        String coordinates;
+        boolean condition1 = false;
+        boolean condition2 = false;
+        int xAsciiValue;
+        int yAsciiValue;
+        int x;
+        int y;
 
         System.out.print("Enter cells: ");
-        String cells = scanner.nextLine();
+        cells = scanner.nextLine();
 
         printCells(cells);
 //        analyzeGame(cells);
+
+        while (true) {
+            System.out.println("Enter the coordinates: ");
+            coordinates = scanner.nextLine();
+
+            xAsciiValue = coordinates.charAt(0);
+            yAsciiValue = coordinates.charAt(2);
+
+            condition1 = xAsciiValue < 49 || xAsciiValue > 57;
+            condition2 = yAsciiValue < 49 || yAsciiValue > 57;
+
+            if (condition1 || condition2) {
+                System.out.println("You should enter numbers!");
+                continue;
+            }
+
+            condition1 = xAsciiValue <= 51 && yAsciiValue <= 51;
+
+            if (!condition1) {
+                System.out.println("Coordinates should be from 1 to 3!");
+                continue;
+            }
+
+            if(!verifyCellOccupied(cells, xAsciiValue, yAsciiValue)) {
+                System.out.println("This cell is occupied! Choose another one!");
+                continue;
+            }
+
+            break;
+        }
     }
 
     public static boolean countElements(String cells) {
@@ -68,5 +106,14 @@ public class Main {
         System.out.println("| " + cells.charAt(3) + " " + cells.charAt(4) + " " + cells.charAt(5) + " |");
         System.out.println("| " + cells.charAt(6) + " " + cells.charAt(7) + " " + cells.charAt(8) + " |");
         System.out.println("---------");
+    }
+
+    public static boolean verifyCellOccupied(String cells, int x, int y) {
+        x -= 49;
+        y -= 49;
+        int cellNumber = 3 * x + y;
+        int cellContent = cells.charAt(cellNumber);
+
+        return cellContent == 95;
     }
 }
