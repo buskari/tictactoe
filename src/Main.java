@@ -5,8 +5,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String cells = "         ";
         String coordinates;
-        boolean condition1 = false;
-        boolean condition2 = false;
+        boolean condition1;
+        boolean condition2;
         boolean playing = true;
         int xAsciiValue;
         int yAsciiValue;
@@ -46,21 +46,6 @@ public class Main {
             playing = analyzeGame(cells, xAsciiValue, yAsciiValue, count);
             count += 1;
         }
-    }
-
-    public static boolean countElements(String cells) {
-        int count = 0;
-
-        for (int i = 0; i < cells.length(); i++) {
-            if (cells.charAt(i) == 'X') {
-                count++;
-            }
-            if (cells.charAt(i) == 'O') {
-                count--;
-            }
-        }
-
-        return count == 0 || Math.abs(count) == 1;
     }
 
     public static boolean isWinner(String cells, char ch, int cellNumber) {
